@@ -6,9 +6,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeStackParams } from '@navigator';
 import { theme } from '@theme';
 
-type IMainScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
+type ITodayScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
 
-export const MainScreen: FC<IMainScreenProps> = ({ route, navigation }) => {
+export const TodayScreen: FC<ITodayScreenProps> = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Put your code here...</Text>

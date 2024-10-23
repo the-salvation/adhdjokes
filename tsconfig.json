@@ -6,13 +6,14 @@
       "@assets": ["src/assets/"],
       "@components": ["src/components/"],
       "@constants": ["src/constants/"],
-      "@helpers": ["src/helpers/"],
+      "@helpers": ["src/utils/helpers/"],
       "@hooks": ["src/hooks/"],
       "@navigator": ["src/navigator/"],
       "@screens": ["src/screens/"],
       "@styles": ["src/styles/"],
       "@theme": ["src/theme/"],
-      "@types": ["src/types"]
+      "@types": ["src/types"],
+      "@storage": ["src/storage/"]
     }
   }
 }
