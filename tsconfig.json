@@ -13,7 +13,8 @@
       "@styles": ["src/styles/"],
       "@theme": ["src/theme/"],
       "@types": ["src/types"],
-      "@storage": ["src/storage/"]
+      "@storage": ["src/storage/"],
+      "@store": ["src/store/"]
     }
   }
 }

@@ -1,21 +1,23 @@
 import React, { JSX } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { HomeStack } from '@navigator';
+import { Provider } from 'react-redux';
+import store from './store/store'
 
-const queryClient = new QueryClient();
 
-export const App = (): JSX.Element => {
+export const App = () => {
+  console.log(store.getState());
+
   return (
-    <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
       <SafeAreaProvider>
         <NavigationContainer>
           <HomeStack />
         </NavigationContainer>
       </SafeAreaProvider>
-    </QueryClientProvider>
+    </Provider>
   );
 };

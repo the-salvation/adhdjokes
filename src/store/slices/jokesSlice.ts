@@ -1,75 +1,67 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { saveJoke } from '@storage';
 
-// import { fetchJokeFromAPI } from '../utils/api';
+import { fetchJokeFromAPI } from '../../utils';
+import { RootState } from '../store';
 
-// export interface Joke {
-//   id: string;
-//   content: string;
-//   date: string;
-//   liked: boolean;
-// }
+interface JokeState {
+  currentJoke: any;
+  jokesHistory: any[];
+  likedJokes: { [key: string]: boolean };
+  lastFetchDate: string;
+}
 
-// interface JokesState {
-//   todayJoke: Joke | null;
-//   history: Joke[];
-//   loading: boolean;
-//   error: string | null;
-// }
+const initialState: JokeState = {
+  currentJoke: null,
+  jokesHistory: [],
+  likedJokes: {},
+  lastFetchDate: '',
+};
 
-// const initialState: JokesState = {
-//   todayJoke: null,
-//   history: [],
-//   loading: false,
-//   error: null,
-// };
+// export const fetchJoke = createAsyncThunk('joke/fetchJoke', async () => {
+//   try {
+//     const joke = await fetchJokeFromAPI();
+//     await saveJoke(joke);
 
-// export const fetchTodayJoke = createAsyncThunk('jokes/fetchTodayJoke', async () => {
-//   const joke = await fetchJokeFromAPI();
-//   return joke;
+//     return joke;
+//   } catch (error) {
+//     console.error(error);
+//   }
 // });
 
-// export const loadJokesFromStorage = createAsyncThunk('jokes/loadJokesFromStorage', async () => {
-//   const storedJokes = await AsyncStorage.getItem('jokes');
-//   return storedJokes ? (JSON.parse(storedJokes) as Joke[]) : [];
-// });
+export const fetchJoke = createAsyncThunk('joke/fetchJoke', async (_, { getState }) => {
+  const state = getState() as RootState;
+  const lastFetchDate = state.jokes.lastFetchDate;
+  const today = new Date().toDateString();
 
-// const jokesSlice = createSlice({
-//   name: 'jokes',
-//   initialState,
-//   reducers: {
-//     toggleLike(state, action) {
-//       const joke = state.history.find(j => j.id === action.payload);
-//       if (joke) {
-//         joke.liked = !joke.liked;
-//         AsyncStorage.setItem('jokes', JSON.stringify(state.history));
-//       }
-//     },
-//   },
-//   extraReducers: builder => {
-//     builder
-//       .addCase(fetchTodayJoke.pending, state => {
-//         state.loading = true;
-//       })
-//       .addCase(fetchTodayJoke.fulfilled, (state, action) => {
-//         state.loading = false;
-//         const today = new Date().toISOString().split('T')[0];
-//         const newJoke: Joke = { ...action.payload, date: today, liked: false };
-//         state.todayJoke = newJoke;
-//         state.history = [newJoke, ...state.history];
-//         AsyncStorage.setItem('jokes', JSON.stringify(state.history));
-//       })
-//       .addCase(fetchTodayJoke.rejected, (state, action) => {
-//         state.loading = false;
-//         state.error = action.error.message || 'Failed to fetch joke';
-//       })
-//       .addCase(loadJokesFromStorage.fulfilled, (state, action) => {
-//         state.history = action.payload;
-//         const today = new Date().toISOString().split('T')[0];
-//         state.todayJoke = state.history.find(j => j.date === today) || null;
-//       });
-//   },
-// });
+  if (lastFetchDate === today && state.jokes.currentJoke) {
+    return state.jokes.currentJoke;
+  } else {
+    const joke = await fetchJokeFromAPI();
+    await saveJoke(joke);
+    return joke;
+  }
+});
 
-// export const { toggleLike } = jokesSlice.actions;
-// export default jokesSlice.reducer;
+const jokeSlice = createSlice({
+  name: 'joke',
+  initialState,
+  reducers: {
+    toggleLike: (state, action) => {
+      const jokeId = action.payload;
+      state.likedJokes[jokeId] = !state.likedJokes[jokeId];
+    },
+    setJokesHistory: (state, action) => {
+      state.jokesHistory = action.payload;
+    },
+  },
+  extraReducers: builder => {
+    builder.addCase(fetchJoke.fulfilled, (state, action) => {
+      state.currentJoke = action.payload;
+      state.lastFetchDate = new Date().toDateString();
+    });
+  },
+});
+
+export const { toggleLike, setJokesHistory } = jokeSlice.actions;
+export default jokeSlice.reducer;
