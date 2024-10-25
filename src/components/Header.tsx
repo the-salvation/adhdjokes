@@ -1,12 +1,14 @@
 import { FC } from 'react';
 import { COLORS } from '@utils';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 interface HeaderProps {
   text: string;
+  style?: StyleProp<ViewStyle>;
 }
-const Header: FC<HeaderProps> = ({ text }) => (
-  <View style={styles.header}>
+
+const Header: FC<HeaderProps> = ({ text, style }) => (
+  <View style={[styles.header, style]}>
     <Text style={styles.headerTitle}>{text}</Text>
   </View>
 );

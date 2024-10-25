@@ -10,8 +10,6 @@ const TodayScreen = () => {
   const { currentJoke, likedJokes } = useAppSelector(jokesSelector);
 
   useLayoutEffect(() => {
-    console.log('LAYOUT');
-
     dispatch(initializeLikedJokes());
   }, [dispatch]);
 
@@ -31,7 +29,7 @@ const TodayScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header text="Today" />
+      <Header text="Today" style={styles.header} />
       <TodayJokeCard
         currentJoke={currentJoke}
         isLiked={isLiked}
@@ -45,7 +43,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    paddingHorizontal: 24,
+  },
+  header: {
+    paddingLeft: 24,
   },
   loadingContainer: {
     flex: 1,

@@ -17,8 +17,6 @@ const HistoryScreen = () => {
     };
     loadJokes();
   }, [dispatch]);
-  console.log(JSON.parse(JSON.stringify(jokesHistory, null, 2)));
-
 
   const renderItem = useMemo(() => ({ item }: { item: Joke }) => (
     <JokeCard
@@ -31,10 +29,10 @@ const HistoryScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Header text="History" />
+        <Header text="History" style={styles.header} />
         <FlatList
           data={jokesHistory}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item, idx) => item.id.toString() + idx}
           renderItem={renderItem}
           contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
@@ -51,12 +49,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    padding: 24,
   },
   content: {
-    padding: 24,
-    marginBottom: 100,
-    borderWidth: 1,
+    marginBottom: 130,
+  },
+  header: {
+    paddingLeft: 24,
   },
   listContent: {
     paddingTop: 10,

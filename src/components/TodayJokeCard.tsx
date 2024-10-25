@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    paddingHorizontal: 24,
   },
   jokeCard: {
     backgroundColor: COLORS.white,

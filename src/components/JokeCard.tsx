@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   jokeCard: {
     backgroundColor: COLORS.white,
     flexDirection: 'row',
-    paddingVertical: 24,
+    padding: 24,
   },
   jokeContent: {
     flex: 1,
