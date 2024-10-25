@@ -11,26 +11,30 @@ interface JokeCardProps {
 }
 
 const TodayJokeCard: FC<JokeCardProps> = ({ isLiked, currentJoke, onPress }) => {
+  const { setup, delivery, joke } = currentJoke;
+  const isLikeButtonShown = setup || delivery || joke;
+
   return (
     <View style={styles.jokeContainer}>
       <View style={styles.jokeCard}>
         <Text style={styles.jokeText}>
-          {currentJoke?.setup || 'No joke today 😵‍💫'}
+          {setup || joke || 'No joke today 😵‍💫'}
         </Text>
-        {currentJoke.delivery ? (
-          <Text style={styles.deliveryText}>{currentJoke.delivery}</Text>
+        {delivery ? (
+          <Text style={styles.deliveryText}>{delivery}</Text>
         ) : null}
-        {currentJoke?.setup || currentJoke.delivery ? <TouchableOpacity
-          style={styles.likeButton}
-          onPress={onPress}
-        >
-          <View style={[
-            styles.likeButtonContainer,
-            isLiked && styles.likeButtonContainerActive
-          ]}>
-            {isLiked ? <FavFilledIcon /> : <FavOutlinedIcon />}
-          </View>
-        </TouchableOpacity> : null}
+        {isLikeButtonShown ?
+          (<TouchableOpacity
+            style={styles.likeButton}
+            onPress={onPress}
+          >
+            <View style={[
+              styles.likeButtonContainer,
+              isLiked && styles.likeButtonContainerActive
+            ]}>
+              {isLiked ? <FavFilledIcon /> : <FavOutlinedIcon />}
+            </View>
+          </TouchableOpacity>) : null}
       </View>
     </View>
   )

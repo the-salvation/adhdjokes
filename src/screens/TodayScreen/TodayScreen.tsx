@@ -1,9 +1,10 @@
 import { useEffect, useLayoutEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppDispatch, useAppSelector, fetchJoke, toggleLike, jokesSelector, initializeLikedJokes } from '@store';
 import { Header, TodayJokeCard } from '@components';
 import { COLORS } from '@utils';
+import { RefreshableWrapper } from '@navigator';
 
 const TodayScreen = () => {
   const dispatch = useAppDispatch();
@@ -28,14 +29,16 @@ const TodayScreen = () => {
   const isLiked = likedJokes[currentJoke.id];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header text="Today" style={styles.header} />
-      <TodayJokeCard
-        currentJoke={currentJoke}
-        isLiked={isLiked}
-        onPress={() => dispatch(toggleLike(currentJoke.id))}
-      />
-    </SafeAreaView>
+    <RefreshableWrapper>
+      <SafeAreaView style={styles.container}>
+        <Header text="Today" style={styles.header} />
+        <TodayJokeCard
+          currentJoke={currentJoke}
+          isLiked={isLiked}
+          onPress={() => dispatch(toggleLike(currentJoke.id))}
+        />
+      </SafeAreaView>
+    </RefreshableWrapper>
   );
 };
 

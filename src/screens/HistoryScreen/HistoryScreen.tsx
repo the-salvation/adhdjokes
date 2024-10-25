@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   content: {
-    marginBottom: 130,
+    flex: 1,
+    marginBottom: 40,
   },
   header: {
     paddingLeft: 24,
