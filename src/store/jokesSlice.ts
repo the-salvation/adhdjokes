@@ -77,7 +77,11 @@ const initialState: JokeState = {
   lastFetchDate: '',
 };
 
-export const fetchJoke = createAsyncThunk('joke/fetchJoke', async (_, { getState }) => {
+enum ASYNC_ACTIONS {
+  FETCH_JOKE = 'joke/fetchJoke',
+}
+
+export const fetchJoke = createAsyncThunk(ASYNC_ACTIONS.FETCH_JOKE, async (_, { getState }) => {
   console.log('FETCH JOKE');
 
   const state = getState() as RootState;
@@ -107,8 +111,6 @@ const jokeSlice = createSlice({
     },
     initializeLikedJokes: state => {
       const likedJokes = getLikedJokes();
-      console.log('LIKED JOKES', likedJokes);
-
       state.likedJokes = likedJokes;
     },
   },

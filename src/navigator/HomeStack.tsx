@@ -25,6 +25,8 @@ export const BottomTabNavStack = () => {
           height: 100,
           backgroundColor: COLORS.white,
           paddingBottom: 40,
+          paddingTop: 10,
+          paddingHorizontal: 100
         },
         tabBarIcon: ({ focused }) => {
           if (route.name === homeStackScreens.TODAY) {
@@ -39,7 +41,7 @@ export const BottomTabNavStack = () => {
         },
       })}
     >
-      <Tab.Screen options={{}} name={homeStackScreens.TODAY} component={TodayScreen} />
+      <Tab.Screen name={homeStackScreens.TODAY} component={TodayScreen} />
       <Tab.Screen name={homeStackScreens.HISTORY} component={HistoryScreen} />
     </Tab.Navigator>
   );
