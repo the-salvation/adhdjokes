@@ -4,7 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { homeStackScreens } from '@navigator';
 import { TodayScreen, HistoryScreen } from '@screens';
 
-import { TodayIcon, HistoryIcon } from '@assets';
+import { TodayIcon, HistoryIcon } from '@components';
+import { COLORS } from '@utils';
 
 export type HomeStackParams = {
   [homeStackScreens.HOME]: undefined;
@@ -19,27 +20,26 @@ export const BottomTabNavStack = () => {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
-          borderTopWidth: 0,
+          borderTopWidth: 1,
           elevation: 0,
-          height: 60,
-          backgroundColor: '#FFFFFF',
+          height: 100,
+          backgroundColor: COLORS.white,
+          paddingBottom: 40,
         },
-        tabBarIcon: ({ size, focused }) => {
-          const color = focused ? '#8866FF' : '#CCCCCC';
+        tabBarIcon: ({ focused }) => {
           if (route.name === homeStackScreens.TODAY) {
-            return <TodayIcon width={24} height={24} fill={color} />;
+            return <TodayIcon focused={focused} />;
           }
-          return <HistoryIcon width={24} height={24} fill={color} />;
+          return <HistoryIcon focused={focused} />;
         },
-        tabBarActiveTintColor: '#8866FF',
-        tabBarInactiveTintColor: '#CCCCCC',
+        tabBarActiveTintColor: COLORS.purple,
+        tabBarInactiveTintColor: COLORS.grey,
         tabBarLabelStyle: {
           fontSize: 12,
-          marginBottom: 5,
         },
       })}
     >
-      <Tab.Screen name={homeStackScreens.TODAY} component={TodayScreen} />
+      <Tab.Screen options={{}} name={homeStackScreens.TODAY} component={TodayScreen} />
       <Tab.Screen name={homeStackScreens.HISTORY} component={HistoryScreen} />
     </Tab.Navigator>
   );

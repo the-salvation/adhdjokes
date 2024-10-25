@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import jokesReducer from './slices/jokesSlice';
+import jokesReducer from './jokesSlice';
 
 const store = configureStore({
   reducer: {
