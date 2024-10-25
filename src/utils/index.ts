@@ -1,1 +1,1 @@
-export { fetchJokeFromAPI } from './helpers/api';
+export * from './helpers/api';
