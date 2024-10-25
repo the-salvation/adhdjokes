@@ -3,6 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { FavFilledIcon, FavOutlinedIcon } from "@assets";
 import { Joke } from "@types";
 import { COLORS } from "@utils";
+import Animated, {
+  FadeIn,
+  SlideInDown,
+  Layout,
+} from 'react-native-reanimated';
 
 interface JokeCardProps {
   currentJoke: Joke,
@@ -16,28 +21,40 @@ const TodayJokeCard: FC<JokeCardProps> = ({ isLiked, currentJoke, onPress }) => 
 
   return (
     <View style={styles.jokeContainer}>
-      <View style={styles.jokeCard}>
+      <Animated.View
+        style={styles.jokeCard}
+        entering={FadeIn.duration(500).springify()}
+        layout={Layout.springify()}
+      >
         <Text style={styles.jokeText}>
           {setup || joke || 'No joke today 😵‍💫'}
         </Text>
         {delivery ? (
-          <Text style={styles.deliveryText}>{delivery}</Text>
+          <Animated.Text
+            style={styles.deliveryText}
+            entering={SlideInDown.duration(400).springify().delay(300)}
+          >
+            {delivery}
+          </Animated.Text>
         ) : null}
         {isLikeButtonShown ?
           (<TouchableOpacity
             style={styles.likeButton}
             onPress={onPress}
           >
-            <View style={[
-              styles.likeButtonContainer,
-              isLiked && styles.likeButtonContainerActive
-            ]}>
+            <Animated.View
+              style={[
+                styles.likeButtonContainer,
+                isLiked && styles.likeButtonContainerActive
+              ]}
+              entering={FadeIn.delay(600)}
+            >
               {isLiked ? <FavFilledIcon /> : <FavOutlinedIcon />}
-            </View>
+            </Animated.View>
           </TouchableOpacity>) : null}
-      </View>
+      </Animated.View>
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({

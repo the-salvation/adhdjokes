@@ -31,6 +31,9 @@ const RefreshableWrapper: FC<RefreshableWrapperProps> = ({ children }) => {
           tintColor={COLORS.purple}
           colors={[COLORS.purple]}
           progressBackgroundColor={COLORS.white}
+          progressViewOffset={40}
+          title="Pull to refresh"
+          titleColor={COLORS.purple}
         />
       }
     >

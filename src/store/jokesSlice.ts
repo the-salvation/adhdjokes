@@ -23,11 +23,18 @@ enum ASYNC_ACTIONS {
 }
 
 export const fetchJoke = createAsyncThunk(ASYNC_ACTIONS.FETCH_JOKE, async (_, { getState }) => {
-  console.log('FETCH JOKE');
+  //! uncomment this when you want to fetch only 1 joke per day
+  // const state = getState() as RootState;
+  // const lastFetchDate = state.jokes.lastFetchDate;
+  // const today = new Date().toDateString();
 
-  const state = getState() as RootState;
-  const lastFetchDate = state.jokes.lastFetchDate;
-  const today = new Date().toDateString();
+  // if (lastFetchDate === today && state.jokes.currentJoke) {
+  //   return state.jokes.currentJoke;
+  // } else {
+  //   const joke = await fetchJokeFromAPI();
+  //   await saveJoke(joke);
+  //   return joke;
+  // }
 
   const joke = await fetchJokeFromAPI();
   await saveJoke(joke);
