@@ -1,5 +1,5 @@
 import { fetchJoke, useAppDispatch } from "@store";
-import { COLORS } from "@utils";
+import { COLORS } from "@styles";
 import React, { useState, useCallback, FC, ReactNode } from "react";
 import { ScrollView, RefreshControl, StyleSheet } from "react-native";
 

@@ -5,8 +5,7 @@ import { homeStackScreens } from '@navigator';
 import { TodayScreen, HistoryScreen } from '@screens';
 
 import { TodayIcon, HistoryIcon } from '@components';
-import { COLORS } from '@utils';
-
+import { COLORS } from '@styles';
 export type HomeStackParams = {
   [homeStackScreens.HOME]: undefined;
 };

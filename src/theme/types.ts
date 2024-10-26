@@ -1,3 +1,5 @@
+import { AnimatableNumericValue } from 'react-native';
+
 import { IIOSShadow } from '@styles';
 
 export type ScaleFunction = (size: number) => number;
@@ -18,9 +20,30 @@ export interface Theme {
   miniscule: SpacingParameter;
   smallest: SpacingParameter;
   small: SpacingParameter;
-  medium: SpacingParameter;
+  xsmall: SpacingParameter;
+  medium: number | AnimatableNumericValue;
   large: SpacingParameter;
   xlarge: SpacingParameter;
   xxlarge: SpacingParameter;
   massive: SpacingParameter;
+
+  white: string;
+  lightGray: string;
+  black: string;
+  purple: string;
+  purpleish: string;
+  grey: string;
+  lightGrey: string;
+  darkerGrey: string;
+
+  fontSmall: number;
+  fontMedium: number;
+  fontLarge: number;
+
+  sizeSmall: number;
+  sizeLarge: number;
+
+  lineHeightSmall: number;
+  lineHeightMedium: number;
+  lineHeightLarge: number;
 }
